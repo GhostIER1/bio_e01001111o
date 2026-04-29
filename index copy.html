@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e01001111o</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Georgia", serif;
+    background: black;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+
+    cursor: url('https://cur.cursors-4u.net/weapons/wea-1/wea50.cur'), auto;
+}
+
+/* Pantalla de carga */
+.loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    color: #ff8c00;
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.loader.fade {
+    animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
+}
+
+/* Brasas */
+.embers {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ember {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: orange;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: rise linear infinite;
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* Niebla */
+.fog {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: url("https://i.imgur.com/8yKQF6R.png");
+    opacity: 0.05;
+    animation: fogMove 60s linear infinite;
+}
+
+@keyframes fogMove {
+    from {transform: translate(0,0);}
+    to {transform: translate(-500px,-300px);}
+}
+
+/* Contenedor */
+.container {
+    text-align: center;
+    background: rgba(20,20,20,0.9);
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 350px;
+    z-index: 2;
+}
+
+/* Avatar */
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid #ff8c00;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Links */
+a {
+    display: block;
+    text-decoration: none;
+    color: #e0e0e0;
+    background: #111;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    transition: 0.3s;
+}
+
+a:hover, a:active {
+    background: #222;
+    color: #ff8c00;
+    transform: scale(1.05);
+}
+
+/* Botón música */
+.music-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #e0e0e0;
+}
+
+footer {
+    font-size: 12px;
+    color: #777;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+    LOADING...
+</div>
+
+<div class="fog"></div>
+<div class="embers" id="embers"></div>
+
+<div class="container">
+    <img src="logo.png" class="avatar">
+    <h1 style="color:#ff8c00;">e01001111o</h1>
+
+    <a href="https://discord.gg/GVVQjnDV">🔥 Discord</a>
+    <a href="https://www.instagram.com/e01001111o/">📸 Instagram</a>
+    <a href="https://www.tiktok.com/@30e01001111o03">🎵 TikTok</a>
+    <a href="https://www.youtube.com/@e1111o-t2r">▶ YouTube</a>
+    <a href="https://x.com/JOSUE823047">🐦 Twitter / X</a>
+    <a href="https://kick.com/e0100111100">🟢 Kick</a>
+
+    <button class="music-btn" onclick="toggleMusic()">🎶 Música</button>
+
+    <footer>“Prepare to Link the Fire”</footer>
+</div>
+
+<!-- Música -->
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f1c6e6f7.mp3">
+</audio>
+
+<script>
+let music = document.getElementById("bgMusic");
+let playing = false;
+
+// Activar música con cualquier interacción
+function startMusic() {
+    if (!playing) {
+        music.play();
+        playing = true;
+
+        // Opcional: cambiar texto del botón
+        const btn = document.querySelector(".music-btn");
+        if (btn) btn.innerText = "🔇 Pausar música";
+    }
+}
+
+// Detecta interacción en TODA la pantalla
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
+
+// Botón sigue funcionando manualmente
+function toggleMusic(){
+    const btn = document.querySelector(".music-btn");
+
+    if(!playing){
+        music.play();
+        btn.innerText = "🔇 Pausar música";
+        playing = true;
+    } else {
+        music.pause();
+        btn.innerText = "🎶 Activar música";
+        playing = false;
+    }
+}
+
+// Brasas
+const container = document.getElementById("embers");
+
+for(let i=0;i<40;i++){
+    let ember = document.createElement("div");
+    ember.className = "ember";
+    ember.style.left = Math.random()*100+"%";
+    ember.style.animationDuration = (3 + Math.random()*5)+"s";
+    ember.style.opacity = Math.random();
+    container.appendChild(ember);
+}
+
+// Loader
+window.onload = () => {
+    setTimeout(() => {
+        document.getElementById("loader").classList.add("fade");
+    }, 1500);
+};
+</script>
+
+</body>
+</html>
